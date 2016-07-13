@@ -21,6 +21,10 @@ class MockSessionDataTask : NSURLSessionDataTask {
     
     init(onResume: (task: MockSessionDataTask)->()) {
         self.onResume = onResume
+        _countOfBytesReceivedPrivate = 0;
+        _countOfBytesSentPrivate = 0;
+        _countOfBytesExpectedToSendPrivate = 0;
+        _countOfBytesExpectedToReceivePrivate = 0;
     }
     
     var _taskIdentifier: Int = {
@@ -44,6 +48,26 @@ class MockSessionDataTask : NSURLSessionDataTask {
     var _state: NSURLSessionTaskState = .Suspended
     override var state: NSURLSessionTaskState {
         return _state
+    }
+    
+    var _countOfBytesReceivedPrivate: Int64
+    override var countOfBytesReceived: Int64 {
+        return _countOfBytesReceivedPrivate
+    }
+
+    var _countOfBytesSentPrivate: Int64
+    override var countOfBytesSent: Int64 {
+        return _countOfBytesSentPrivate
+    }
+
+    var _countOfBytesExpectedToSendPrivate: Int64
+    override var countOfBytesExpectedToSend: Int64 {
+        return _countOfBytesExpectedToSendPrivate
+    }
+
+    var _countOfBytesExpectedToReceivePrivate: Int64
+    override var countOfBytesExpectedToReceive: Int64 {
+        return _countOfBytesExpectedToReceivePrivate
     }
     
     override func resume() {
